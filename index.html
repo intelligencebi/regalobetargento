@@ -358,8 +358,8 @@
     const STORAGE_KEY = "premioBet";
     if(localStorage.getItem(STORAGE_KEY)){
       giftBox.classList.add("opened");
-      instructionText.textContent="Ya reclamaste tu premio";
-      instructionText.style.opacity="0.6";
+      instructionText.textContent = "Ya reclamaste tu premio — tocá para verlo de nuevo";
+      instructionText.style.opacity = "0.9";
     }
 
     /* ===== Interacción caja ===== */
@@ -388,8 +388,8 @@
     }
     function cerrarModal(){
       resultModal.classList.remove('show');
-      instructionText.textContent="Ya reclamaste tu premio";
-      instructionText.style.opacity="0.6";
+      instructionText.textContent = "Ya reclamaste tu premio — tocá para verlo de nuevo";
+      instructionText.style.opacity = "0.9";
     }
     resultModal.addEventListener('click',(e)=>{if(e.target===resultModal)cerrarModal();});
 
