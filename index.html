@@ -16,13 +16,13 @@
 
     :root{
       /* Paleta BetArgento (azules + negro + dorado) */
-      --blue:#27B5FF;              /* acento celeste */
+      --blue:#27B5FF;              
       --blue-soft:#7CD6FF;
-      --blue-deep:#0C2233;         /* azules profundos */
+      --blue-deep:#0C2233;         
       --blue-dark:#081621;
-      --ink:#0B0F14;               /* casi negro */
+      --ink:#0B0F14;               
 
-      --gold:#D4AF37;              /* dorado */
+      --gold:#D4AF37;              
       --gold-dark:#B4902F;
       --gold-soft:#F1D27A;
 
@@ -127,7 +127,13 @@
         0 0 35px rgba(39,181,255,.25);
     }
     .gift-box:hover{transform:translateY(-6px) scale(1.015);box-shadow:0 28px 72px rgba(39,181,255,.4),0 0 0 1px rgba(39,181,255,.35),inset 0 1px 0 rgba(255,255,255,.12)}
-    .gift-box.opened{animation:giftOpen .8s cubic-bezier(.68,-.55,.265,1.55);pointer-events:none;transform-origin:center}
+    /* Permitir clics cuando está “abierta” para volver a ver el premio */
+    .gift-box.opened{
+      animation:giftOpen .8s cubic-bezier(.68,-.55,.265,1.55);
+      transform-origin:center;
+      pointer-events:auto;  /* <-- clave */
+      cursor:pointer;       /* feedback visual */
+    }
     @keyframes giftOpen{0%{transform:scale(1) rotateY(0)}50%{transform:scale(1.08) rotateY(180deg)}100%{transform:scale(.96) rotateY(360deg)}}
     .gift-icon{font-size:clamp(4rem,12vw,6rem);margin-bottom:8px;animation:giftFloat 3s ease-in-out infinite}
     @keyframes giftFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(5deg)}}
@@ -180,7 +186,6 @@
       background:linear-gradient(135deg,var(--blue),var(--blue-deep)); color:var(--white); border:none;
       padding:14px 40px; font-size:1rem; font-weight:700; border-radius:999px; cursor:pointer; margin-top:18px;
       transition:transform .2s ease, box-shadow .2s ease; letter-spacing:.2px; box-shadow:0 10px 30px rgba(39,181,255,.35);
-      font-family:var(--ff-ui); text-transform:uppercase;
     }
     .modal-button:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(39,181,255,.45)}
     .modal-button:active{transform:translateY(0)}
@@ -290,8 +295,7 @@
   <div id="soundHint" class="sound-hint" style="display:none;">Toque para habilitar audio</div>
 
   <script>
-    /* ===== Probabilidades ponderadas =====
-       Bonos con mayor presencia; fichas grandes muy raras */
+    /* ===== Probabilidades ponderadas ===== */
     const PREMIOS = [
       { label:"💸 10.000 FICHAS GRATIS", weight:0.5  },
       { label:"🎉 3.000 FICHAS GRATIS",   weight:2.0  },
@@ -358,8 +362,8 @@
     const STORAGE_KEY = "premioBet";
     if(localStorage.getItem(STORAGE_KEY)){
       giftBox.classList.add("opened");
-      instructionText.textContent = "Ya reclamaste tu premio — tocá para verlo de nuevo";
-      instructionText.style.opacity = "0.9";
+      instructionText.textContent = "Tocá el regalo para ver tu premio";
+      instructionText.style.opacity = "1";
     }
 
     /* ===== Interacción caja ===== */
@@ -388,8 +392,8 @@
     }
     function cerrarModal(){
       resultModal.classList.remove('show');
-      instructionText.textContent = "Ya reclamaste tu premio — tocá para verlo de nuevo";
-      instructionText.style.opacity = "0.9";
+      instructionText.textContent = "Tocá el regalo para ver tu premio";
+      instructionText.style.opacity = "1";
     }
     resultModal.addEventListener('click',(e)=>{if(e.target===resultModal)cerrarModal();});
 
@@ -424,7 +428,6 @@
         setTimeout(()=>c.remove(), 6000);
       }
     }
-
   </script>
 </body>
 </html>
